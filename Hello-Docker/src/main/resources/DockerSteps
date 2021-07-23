@@ -1,0 +1,52 @@
+Build Docker Image Manually 
+
+1) Build a JAR 
+	target/Hello-Docker-1.0.jar
+2) Setup the prerequisites for running the JAR
+	openjdk:11
+3) Copy the JAR
+4) Run the JAR
+	1.Save the jar as image
+		docker container commit <name_of_container> pragashr/hellodockerimage:manual
+
+Commands :
+
+docker container prune - command will remove all stopped container
+
+docker image rm $(docker images -a -q)
+
+docker run -dit openjdk:11
+
+
+Syntax : 
+docker container exec <container> ls /tmp
+
+docker container exec friendly_tesla ls /tmp
+
+Copy a jar to container :
+-------------------------
+docker container cp target/ <name_of_container>:/tmp
+
+docker container cp target/hellodocker1-1.0.jar loving_hermann:/tmp
+
+Concert the jar to an image :
+ --------------------------
+docker container commit <name_of_container> <docker_hub_repository>:tag
+
+docker container commit loving_hermann local/hellodocker:latest
+
+
+docker run local/hellodocker:latest
+
+Using above command we are running the image, but we are not starting the application
+
+docker container commit --change='CMD ["java","-jar","/tmp/hello-docker-1.0.jar"]' friendly_tesla <docker_hub_repository>:tag
+
+docker container commit --change='CMD ["java","-jar","/tmp/hellodocker1-1.0.jar"]' loving_hermann local/hellodocker:latest
+
+
+Running a application :
+docker run -p {hostport}:{containerport} -dit <repository_path>:<tag>
+docker run -p 8086:8082 -dit local/hellodocker:manual
+
+

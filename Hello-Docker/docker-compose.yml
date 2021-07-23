@@ -1,0 +1,9 @@
+version: '0'
+
+services:
+
+  web:
+    image: nginx
+
+  redis:
+    image: redis
